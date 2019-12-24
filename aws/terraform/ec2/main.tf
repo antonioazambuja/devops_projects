@@ -111,8 +111,8 @@ resource "aws_launch_configuration" "example" {
     name            = "lc-example"
     instance_type   = "t2.micro"
     key_name        = "key-name"
-    security_groups = ["${data.aws_security_group.example.id}"]
-    vpc_classic_link_id = "${data.aws_vpc.example.id}"
+    security_groups = ["${aws_security_group.example.id}"]
+    vpc_classic_link_id = "${aws_vpc.example.id}"
     user_data = <<-EOF
 		#!/bin/bash
 
@@ -134,7 +134,9 @@ resource "aws_autoscaling_group" "example" {
         propagate_at_launch = true
     }
     vpc_zone_identifier = [
-        "${data.aws_subnet_ids.tema20-subnets.ids}"
+        "${aws_subnet.example-a.id}",
+        "${aws_subnet.example-b.id}",
+        "${aws_subnet.example-c.id}"
     ]
 }
 
@@ -148,13 +150,13 @@ resource "aws_elb" "example" {
         lb_protocol       = "http"
     }
     instances = ["${aws_autoscaling_group.example}"]
-    source_security_group = "${data.aws_security_group.example.id}"
+    source_security_group = "${aws_security_group.example.id}"
     tags = {
         Name = "elb-example"
     }
 }
 
 resource "aws_autoscaling_attachment" "example-aa" {
-  autoscaling_group_name = "${data.aws_autoscaling_group.example.id}"
+  autoscaling_group_name = "${aws_autoscaling_group.example.id}"
   elb                    = "${aws_elb.example.id}"
 }
