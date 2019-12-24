@@ -1,0 +1,42 @@
+{
+    "variables": {
+        "elk_version": "{{env `ELK_VERSION`}}"
+    },
+    "builders": [
+    {
+      "type": "docker",
+      "image": "ubuntu:18.04",
+      "commit": "true",
+      "changes": [
+        "USER logstash",
+        "WORKDIR /home/logstash/logstash-{{user `elk_version`}}",
+        "EXPOSE 5401",
+        "ENTRYPOINT [\"/bin/bash\", \"-c\", \"bin/logstash -f config/logstash.conf\"]"
+      ]
+    }],
+    "provisioners": [
+        {
+            "type": "file",
+            "source": "./provisioner",
+            "destination": "$HOME"
+        },
+        {
+            "type": "shell",
+            "inline": ["apt-get update -y && apt-get install python3 -y && apt-get install ansible -y"]
+        },
+        {
+            "type": "ansible-local",
+            "playbook_dir": "provisioner",
+            "playbook_file": "./provisioner/playbook.yml"
+        }
+    ],
+    "post-processors": [
+        [
+            {
+                "type": "docker-tag",
+                "repository": "logstash-{{user `elk_version`}}",
+                "tag": "latest"
+            }
+        ]
+    ]
+  }
