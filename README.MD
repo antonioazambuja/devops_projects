@@ -1,3 +1,3 @@
-# Examples DevOps Solutions
+# Examples - DevOps Sandbox
 
 Thanks!
