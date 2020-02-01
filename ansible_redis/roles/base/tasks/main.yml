@@ -1,0 +1,7 @@
+---
+- name: Update Alpine Linux
+  apk:
+    update_cache: yes
+
+- name: Install commands for extract
+  shell: apk add tar unzip

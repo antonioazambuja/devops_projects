@@ -1,0 +1,8 @@
+---
+- hosts: all
+  vars_files:
+    - version.yml
+  roles:
+    - base
+    - java-8
+    - kafka

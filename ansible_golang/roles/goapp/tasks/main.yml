@@ -1,0 +1,23 @@
+---
+- name: Download Golang
+  become: yes
+  unarchive:
+    src: https://dl.google.com/go/go1.13.4.linux-amd64.tar.gz
+    dest: /usr/local
+    remote_src: yes
+
+- name: Install Git
+  become: yes
+  yum:
+    name: git
+    state: present
+
+- name: Set env vars Golang
+  become: yes
+  blockinfile:
+    dest: /etc/profile
+    block: |
+      export GOROOT=/usr/local/go/bin
+      export GOPATH=/go
+      export PATH=/usr/local/go/bin:$PATH
+    insertafter: EOF

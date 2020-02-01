@@ -1,0 +1,6 @@
+---
+- name: Download Cassandra
+  unarchive:
+    src: https://www-us.apache.org/dist/cassandra/{{ cassandra_version }}/apache-cassandra-{{ cassandra_version }}-bin.tar.gz
+    dest: /
+    remote_src: yes

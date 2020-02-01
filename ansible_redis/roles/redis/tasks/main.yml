@@ -1,0 +1,18 @@
+---
+- name: Install dependencies for Redis
+  shell: apk add musl gcc g++ make linux-headers
+
+- name: Download Redis
+  unarchive:
+    src: http://download.redis.io/releases/redis-{{ redis_version }}.tar.gz
+    dest: /
+    remote_src: yes
+
+- name: make Redis
+  make: 
+    chdir: /redis-{{ redis_version }}
+  
+- name: make install Redis
+  make:
+    chdir: /redis-{{ redis_version }}
+    target: install

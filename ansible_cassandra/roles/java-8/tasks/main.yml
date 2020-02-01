@@ -1,0 +1,3 @@
+---
+- name: Download Java 8
+  shell: apk add openjdk8

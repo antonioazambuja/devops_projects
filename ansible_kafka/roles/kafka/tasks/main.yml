@@ -1,0 +1,16 @@
+---
+- name: Install bash
+  shell: apk add bash
+
+- name: Add user for Kafka
+  user:
+    name: kafka
+    comment: Kafka User
+    uid: 1000
+
+- name: Download Apache Kafka
+  unarchive:
+    src: http://us.mirrors.quenda.co/apache/kafka/{{ kafka_version }}/kafka_{{ scala_version }}-{{ kafka_version }}.tgz
+    dest: /home/kafka
+    remote_src: yes
+    owner: kafka
