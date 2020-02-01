@@ -1,6 +1,0 @@
----
-- name: Download Java 8
-  apt:
-      name: openjdk-8-jdk
-      state: present
-      

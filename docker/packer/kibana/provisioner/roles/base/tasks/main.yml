@@ -1,4 +1,0 @@
----
-- name: Update Ubuntu 18.04
-  apt:
-    update_cache: yes

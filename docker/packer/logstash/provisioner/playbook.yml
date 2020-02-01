@@ -1,9 +1,0 @@
----
-- hosts: all
-  vars_files:
-    - versions.yml
-  roles:
-    - base
-    - consul
-    - java8
-    - logstash
