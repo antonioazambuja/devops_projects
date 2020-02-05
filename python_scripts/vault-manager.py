@@ -55,7 +55,8 @@ def post(args):
             "X-Vault-Token": vaultToken,
             "Content-Type": "application/json"
         }
-        requests.post(vaultUrl, json=json.loads(args.secret), headers=headers)
+        response = requests.post(vaultUrl, json=json.loads(args.secret), headers=headers)
+        # print(str(response.))
     except Exception as error:
         print("[-] Exception: " + str(error))
         sys.exit(1)
@@ -71,6 +72,8 @@ def get(args):
         response = requests.get(vaultUrl, headers=headers)
         if response.status_code == 200:
             print(json.dumps(json.loads(response.content)["data"], indent=2))
+        else:
+            print(json.dumps(json.loads(response.content), indent=2))
     except Exception as error:
         print("[-] Exception: " + str(error) + "\n[-] Status code: ' + str(response.status_code)")
         sys.exit(1)
