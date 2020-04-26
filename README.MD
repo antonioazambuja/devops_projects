@@ -1,3 +1,5 @@
 # Examples - DevOps Sandbox
 
-Thanks!
+This project contains solutions DevOps created with my studies!
+
+## `Thanks!`
