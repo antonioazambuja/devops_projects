@@ -7,7 +7,7 @@ provider "aws" {
 data "aws_security_group" "sg-access" {
     filter {
         name = "group-name"
-        values = ["sg-tema20"]
+        values = ["asg-example"]
     }
 }
 
